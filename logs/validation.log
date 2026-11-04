@@ -1,0 +1,32 @@
+
+test_element_roundtrip:
+  [ok] orbital element round-trip exact to 1e-10
+
+test_ic_statistics:
+  [ok] IC check: e_rms target 1.1469e-03 realised 1.1456e-03 | i_rms target 5.7346e-04 realised 5.7475e-04
+       a range [0.9500, 1.0500] target [0.95, 1.05], M_tot = 0.2355 M_earth
+
+test_two_body_kepler:
+  [ok] 20-orbit Kepler test: |da/a| = 1.31e-09, |de| = 3.31e-09
+
+test_head_on_merger:
+  [ok] head-on merger fired; dM/M = 0.00e+00, N: 2 -> 1
+
+test_merge_operator_conserves:
+  [ok] merge operator: 1 merger, dM/M = 0.00e+00, dp/p = 0.00e+00, density preserved to 2.00e-15
+
+test_no_tunnelling:
+  [ok] tunnelling test: snapshot check finds 0 collision, swept check finds 1
+
+test_gas_drag_damps:
+  [ok] gas drag on a 1 km body over 300 yr (t_s = 81.0 yr): e 0.0500 -> 0.0081, i 0.0200 -> 0.0082, a 1.00000 -> 0.99056 AU
+
+test_tree_vs_bruteforce:
+       theta   median rel. err   99th pct   wall time
+       0.2     6.947e-05       1.247e-03   5.6 ms
+       0.4     4.061e-04       6.755e-03   4.3 ms
+       0.5     7.358e-04       1.210e-02   3.8 ms
+       0.7     1.368e-03       2.198e-02   3.3 ms
+       1.0     3.235e-03       7.123e-02   3.0 ms
+
+All validation tests passed.

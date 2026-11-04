@@ -1,0 +1,94 @@
+
+==========================================================================
+B0  Environment
+==========================================================================
+  python       : 3.12.3
+  platform     : Linux-6.18.44-fc-v24-x86_64-with-glibc2.39
+  processor    : x86_64
+  cpu_count    : 1
+  numpy        : 2.4.4
+  scipy        : 1.17.1
+  pytreegrav   : unknown
+
+==========================================================================
+B1  Mass budget: Eqs. (3.1)-(3.3) vs published PENTACLE model R
+==========================================================================
+  annulus                       : 0.95 - 1.05 AU
+  Sigma_1                       : 10.0 g/cm^2  ( = 1.125210e-06 Msun/AU^2 )
+  M_tot from Eq. (3.2)          : 0.235522 M_earth
+  Iwasawa et al. 2017, Table 1  : 0.236 M_earth
+  relative difference           : 0.20 %
+
+  Consequence of Eqs. (3.2)-(3.3): N and R_p are NOT independent.
+        N    m_p (Msun)   m_p (M_earth)   R_p (km)   h = r_H/a   e_rms = 4h
+      500    1.4144e-09      4.7104e-04      695.1   9.806e-04    3.922e-03
+     1000    7.0721e-10      2.3552e-04      551.7   7.783e-04    3.113e-03
+     2000    3.5361e-10      1.1776e-04      437.9   6.177e-04    2.471e-03
+     5000    1.4144e-10      4.7104e-05      322.6   4.552e-04    1.821e-03
+    10000    7.0721e-11      2.3552e-05      256.1   3.613e-04    1.445e-03
+   100000    7.0721e-12      2.3552e-06      118.9   1.677e-04    6.707e-04
+  1000000000    7.0721e-16      2.3552e-10        5.5   7.783e-06    3.113e-05
+
+  Note the last row: reaching genuine 1 km planetesimals in this
+  annulus requires N ~ 1e9. The simulated bodies are 100-600 km
+  objects at the runaway/oligarchic boundary, not 1 km bodies.
+
+==========================================================================
+B2  Barnes-Hut tree vs direct summation (mutual forces only)
+==========================================================================
+  Swarm geometry from the real IC generator; theta = 0.5.
+        N   tree (ms)   brute (ms)   speedup
+      500        0.69         0.96     1.39x
+     1000        1.55         2.42     1.56x
+     2000        3.40        10.03     2.95x
+     5000       11.18        61.46     5.50x
+    10000       26.93       243.92     9.06x
+    20000       56.63       924.23    16.32x
+
+  If the speedup at your production N is near 1.0, the tree code
+  cannot be justified on cost grounds at that N. Raise N until it
+  can, or state the justification differently in Chapter III.
+
+==========================================================================
+B3  Barnes-Hut accuracy vs opening angle theta (Eq. 2.4)
+==========================================================================
+  N = 2000, error relative to exact direct summation
+   theta    median err     90th pct     99th pct      max err   wall (ms)
+     0.2     6.947e-05    2.792e-04    1.247e-03    1.046e-02         5.2
+     0.3     1.897e-04    8.143e-04    3.734e-03    2.557e-02         4.3
+     0.4     4.061e-04    1.707e-03    6.755e-03    4.076e-02         3.9
+     0.5     7.358e-04    3.247e-03    1.210e-02    1.069e-01         3.5
+     0.6     1.025e-03    4.586e-03    1.688e-02    1.112e-01         3.2
+     0.7     1.368e-03    6.056e-03    2.198e-02    1.113e-01         3.2
+     1.0     3.235e-03    1.501e-02    7.123e-02    2.061e-01         2.7
+
+==========================================================================
+B5  Gas drag stopping time vs body size and orbital radius
+==========================================================================
+  rho_gas(1 AU) = 2.0e-09 g/cm^3, C_D = 1, rho_p = 2 g/cm^3
+  eta = 0.0019 (a/AU)^(1/2)
+
+   a (AU)    R (km)   m (M_earth)   t_stop (yr)  t_stop / t_end
+      0.4       1.0     1.403e-12     3.594e+01             0.0
+      0.4      10.0     1.403e-09     3.594e+02             0.0
+      0.4     100.0     1.403e-06     3.594e+03             0.2
+      0.4     438.0     1.179e-04     1.574e+04             0.8
+
+      1.0       1.0     1.403e-12     6.039e+02             0.0
+      1.0      10.0     1.403e-09     6.039e+03             0.3
+      1.0     100.0     1.403e-06     6.039e+04             3.0
+      1.0     438.0     1.179e-04     2.645e+05            13.2
+
+      5.0       1.0     1.403e-12     6.057e+04             3.0
+      5.0      10.0     1.403e-09     6.057e+05            30.3
+      5.0     100.0     1.403e-06     6.057e+06           302.8
+      5.0     438.0     1.179e-04     2.653e+07          1326.4
+
+  t_stop / t_end >> 1 means drag cannot act within the
+  integration. At 438 km and 1 AU it is ~13, so Scenario 2 with
+  nominal gas is a NULL result by construction. Use gas_boost, or
+  move the annulus inward, or report the null with this table.
+
+==========================================================================
+Done in 37.9 s. Machine-readable results written to benchmarks_quick.json
+==========================================================================

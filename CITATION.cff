@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the thesis below."
+title: "planetesimal_sim: tree-code N-body simulation of protoplanet formation with nebular gas drag and a giant planet"
+authors:
+  - family-names: "Abhiyasa"
+    given-names: "Muhammad Refan Haisar"
+    affiliation: "Institut Teknologi Sumatera (ITERA)"
+date-released: 2026-11-04
+license: MIT
+type: software
