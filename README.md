@@ -76,8 +76,6 @@ holding `config.json`, `series.json` (diagnostics every 100 yr),
 continued with `--resume`. `inspect_run.py RUN_FOLDER` looks for sudden jumps
 in a finished run and lists the impacts around them.
 
-`planetesimal_sim_colab.ipynb` runs the same code on Google Colab.
-
 ## Repository layout
 
 ```
@@ -101,7 +99,6 @@ inspect_run.py             finds jumps in a finished run
 check_setup.py             environment check
 make_thesis_figures.py     schematic figures of Chapters II-III
 logs/                      benchmark and validation output from the thesis machine
-docs/SETUP_VSCODE.md       step-by-step setup in VS Code
 ```
 
 ## Simulation output
